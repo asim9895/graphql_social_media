@@ -1,3 +1,4 @@
 {
-  "mongodbURL": "mongodb+srv://asim:asim7648@socialmedia.hcfxh.mongodb.net/<dbname>?retryWrites=true&w=majority"
+  "mongodbURL": "mongodb+srv://asim:asim7648@socialmedia.hcfxh.mongodb.net/<dbname>?retryWrites=true&w=majority",
+  "jwtSecret": "fsjlvnjlfbnlfsjbnlkfnblrwihbpnksnvdmzcnm"
 }

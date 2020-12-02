@@ -1,15 +1,13 @@
-const Post = require('../models/Post');
+const postResolvers = require('../graphql/main/post');
+const userResolvers = require('../graphql/main/user');
 
 const resolvers = {
   Query: {
-    async getPosts() {
-      try {
-        const posts = await Post.find();
-        return posts;
-      } catch (error) {
-        console.log(error);
-      }
-    },
+    ...postResolvers.Query,
+    ...userResolvers.Query,
+  },
+  Mutation: {
+    ...userResolvers.Mutation,
   },
 };
 

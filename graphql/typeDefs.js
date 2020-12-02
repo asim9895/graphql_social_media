@@ -12,6 +12,25 @@ const typeDefs = gql`
     username: String!
     created: String!
   }
+
+  type User {
+    id: ID!
+    email: String!
+    username: String!
+    token: String!
+    created: String!
+  }
+
+  input RegisterInput {
+    username: String!
+    email: String!
+    password: String!
+    confirmPassword: String!
+  }
+
+  type Mutation {
+    registerUser(registerInput: RegisterInput!): User!
+  }
 `;
 
 module.exports = typeDefs;
