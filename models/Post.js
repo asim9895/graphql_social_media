@@ -26,10 +26,10 @@ const postSchema = new schema({
   ],
   likes: [
     {
-      body: {
+      username: {
         type: String,
       },
-      username: {
+      created: {
         type: String,
       },
     },

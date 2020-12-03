@@ -1,5 +1,6 @@
 const postResolvers = require('../graphql/main/post');
 const userResolvers = require('../graphql/main/user');
+const commentResolvers = require('../graphql/main/comment');
 
 const resolvers = {
   Query: {
@@ -9,6 +10,7 @@ const resolvers = {
   Mutation: {
     ...userResolvers.Mutation,
     ...postResolvers.Mutation,
+    ...commentResolvers.Mutation,
   },
 };
 
