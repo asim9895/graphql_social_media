@@ -28,4 +28,21 @@ const validateRegisterUser = (username, email, password, confirmPassword) => {
   };
 };
 
-module.exports = validateRegisterUser;
+const validateLoginUser = (username, password) => {
+  const errors = {};
+
+  if (username.trim() === '') {
+    errors.username = 'Username is Empty';
+  }
+
+  if (password.trim() === '') {
+    errors.password = 'Password is Empty';
+  }
+
+  return {
+    errors,
+    valid: Object.keys(errors).length < 1,
+  };
+};
+
+module.exports = { validateRegisterUser, validateLoginUser };
