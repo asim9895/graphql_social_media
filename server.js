@@ -10,6 +10,7 @@ const port = process.env.PORT || 4500;
 const server = new ApolloServer({
   typeDefs,
   resolvers,
+  context: ({ req }) => ({ req }),
 });
 
 server.listen(port, () => {

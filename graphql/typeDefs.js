@@ -4,6 +4,7 @@ const typeDefs = gql`
   type Query {
     sayHi: String!
     getPosts: [Post]!
+    getPost(postId: ID!): Post!
   }
 
   type Post {
@@ -31,6 +32,8 @@ const typeDefs = gql`
   type Mutation {
     registerUser(registerInput: RegisterInput!): User!
     loginUser(username: String!, password: String!): User!
+    createPost(body: String!): Post!
+    deletePost(postId: String!): String!
   }
 `;
 
