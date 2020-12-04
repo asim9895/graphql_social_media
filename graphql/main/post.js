@@ -1,6 +1,6 @@
 const Post = require('../../models/Post');
 const auth = require('../../utils/middleware');
-const { AuthenticationError } = require('apollo-server');
+const { AuthenticationError, UserInputError } = require('apollo-server');
 
 module.exports = {
   Query: {
@@ -29,7 +29,12 @@ module.exports = {
   Mutation: {
     async createPost(_, { body }, context, info) {
       const user = auth(context);
-      console.log(user);
+
+      if (body.trim() === '') {
+        throw new UserInputError('Body Cannot be Empty', {
+          errors: 'Body Cannot be Empty',
+        });
+      }
 
       const newPost = new Post({
         body,
@@ -39,7 +44,9 @@ module.exports = {
       });
 
       const res = await newPost.save();
-
+      context.pubsub.publish('NEW_POST', {
+        newPost: res,
+      });
       return res;
     },
     async deletePost(_, { postId }, context, info) {
@@ -57,6 +64,33 @@ module.exports = {
       } catch (error) {
         throw new Error(error);
       }
+    },
+    async likePost(_, { postId }, context, info) {
+      const user = auth(context);
+
+      const post = await Post.findById(postId);
+      if (post) {
+        if (post.likes.find((like) => like.username === user.username)) {
+          post.likes = post.likes.filter(
+            (like) => like.username !== user.username
+          );
+        } else {
+          post.likes.push({
+            username: user.username,
+            created: new Date().toISOString(),
+          });
+        }
+
+        await post.save();
+        return post;
+      } else {
+        throw new UserInputError('Post Not Found');
+      }
+    },
+  },
+  Subscription: {
+    newPost: {
+      subscribe: (_, __, { pubsub }) => pubsub.asyncIterator('NEW_POST'),
     },
   },
 };
