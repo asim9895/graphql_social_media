@@ -44,7 +44,7 @@ module.exports = {
       if (usernameExists) {
         throw new UserInputError('username is taken', {
           errors: {
-            email: 'Username Taken',
+            username: 'Username Taken',
           },
         });
       }
