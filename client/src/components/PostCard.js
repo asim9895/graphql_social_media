@@ -44,7 +44,7 @@ const PostCard = ({
           </Label>
         </Button>
 
-        <Button as='div' labelPosition='right' onClick={commentPost}>
+        <Button as='div' labelPosition='right' as={Link} to={`/posts/${id}`}>
           <Button basic color='blue'>
             <Icon name='comment outline' />
           </Button>
