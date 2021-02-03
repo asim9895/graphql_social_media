@@ -1,3 +1,3 @@
 Website Link:
 
-graphql-socialmedia.netlify.app
+https://graphql-socialmedia.netlify.app/
